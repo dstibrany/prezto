@@ -239,6 +239,9 @@ bindkey -M emacs "$key_info[Escape]$key_info[Right]" emacs-forward-word
 for key in "$key_info[Escape]"{K,k}
   bindkey -M emacs "$key" backward-kill-line
 
+# Kill word
+bindkey -M emacs "$key_info[Escape]$key_info[Backspace]" backward-kill-word
+
 # Redo.
 bindkey -M emacs "$key_info[Escape]_" redo
 

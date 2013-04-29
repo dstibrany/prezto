@@ -11,16 +11,18 @@
 #
 
 # Log
-zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
-  || _git_log_medium_format='%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
-zstyle -s ':prezto:module:git:log:oneline' format '_git_log_oneline_format' \
-  || _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)%n'
-zstyle -s ':prezto:module:git:log:brief' format '_git_log_brief_format' \
-  || _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n'
+if [ -n "$ZSH_VERSION" ]; then
+    zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
+      || _git_log_medium_format='%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+    zstyle -s ':prezto:module:git:log:oneline' format '_git_log_oneline_format' \
+      || _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)%n'
+    zstyle -s ':prezto:module:git:log:brief' format '_git_log_brief_format' \
+      || _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n'
 
-# Status
-zstyle -s ':prezto:module:git:status:ignore' submodules '_git_status_ignore_submodules' \
-  || _git_status_ignore_submodules='none'
+    # Status
+    zstyle -s ':prezto:module:git:status:ignore' submodules '_git_status_ignore_submodules' \
+      || _git_status_ignore_submodules='none'
+fi
 
 #
 # Aliases
@@ -100,7 +102,7 @@ alias gCt='git checkout --theirs --'
 alias gCT='gCt $(gCl)'
 
 # Log (l)
-alias gl='git log --topo-order --pretty=format:${_git_log_medium_format}'
+alias gll='git log --topo-order --pretty=format:${_git_log_medium_format}'
 alias gls='git log --topo-order --stat --pretty=format:${_git_log_medium_format}'
 alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:${_git_log_medium_format}'
 alias glo='git log --topo-order --pretty=format:${_git_log_oneline_format}'
@@ -108,12 +110,17 @@ alias glg='git log --topo-order --all --graph --pretty=format:${_git_log_oneline
 alias glb='git log --topo-order --pretty=format:${_git_log_brief_format}'
 alias glc='git shortlog --summary --numbered'
 
+alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"'
+alias gl='glog --graph'
+alias gla='gl --branches --remotes --tags'
+
 # Merge (m)
-alias gm='git merge'
+alias gm='git merge --no-ff'
 alias gmC='git merge --no-commit'
-alias gmF='git merge --no-ff'
+alias gmf='git merge --ff-only'
 alias gma='git merge --abort'
 alias gmt='git mergetool'
+alias gmfthis='gmf origin/$(git-branch-current)'
 
 # Push (p)
 alias gp='git push'
@@ -123,13 +130,15 @@ alias gpA='git push --all && git push --tags'
 alias gpt='git push --tags'
 alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gpp='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+alias gpthis='git push origin $(git-branch-current)'
 
 # Rebase (r)
-alias gr='git rebase'
-alias gra='git rebase --abort'
-alias grc='git rebase --continue'
-alias gri='git rebase --interactive'
-alias grs='git rebase --skip'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase --interactive'
+alias grbs='git rebase --skip'
+alias grbthis='grb origin/$(git-branch-current)'
 
 # Remote (R)
 alias gR='git remote'
@@ -143,7 +152,7 @@ alias gRs='git remote show'
 alias gRb='git-hub-browse'
 
 # Stash (s)
-alias gs='git stash'
+alias gst='git stash'
 alias gsa='git stash apply'
 alias gsx='git stash drop'
 alias gsX='git-stash-clear-interactive'
@@ -169,6 +178,7 @@ alias gSu='git submodule foreach git pull origin master'
 alias gSx='git-submodule-remove'
 
 # Working Copy (w)
+alias gs='git status'
 alias gws='git status --ignore-submodules=${_git_status_ignore_submodules} --short'
 alias gwS='git status --ignore-submodules=${_git_status_ignore_submodules}'
 alias gwd='git diff --no-ext-diff'
@@ -179,4 +189,7 @@ alias gwc='git clean -n'
 alias gwC='git clean -f'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
+# Will cd into the top of the current repository # or submodule.
+alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
+
 

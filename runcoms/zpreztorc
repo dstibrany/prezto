@@ -113,7 +113,7 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'brackets' \
   'pattern' \
   'cursor' \
-  'root'
+  # 'root' TODO: fix growl bug
 
 #
 # Terminal

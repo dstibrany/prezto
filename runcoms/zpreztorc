@@ -119,7 +119,7 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'brackets' \
   'pattern' \
   'cursor' \
-  # 'root' TODO: fix growl bug
+  'root' 
 
 # Set syntax highlighting styles.
 # zstyle ':prezto:module:syntax-highlighting' styles \

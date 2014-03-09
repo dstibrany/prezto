@@ -85,9 +85,15 @@ function prompt_steeef_setup {
   zstyle ':prezto:module:python:info:virtualenv' format '(%v)'
 
   # Define prompts.
+  if [[ -z "$SSH_CLIENT" ]]; then
+    SYMBOL="$"
+  else
+    SYMBOL="➜"
+  fi
+
   PROMPT="
 ${_prompt_steeef_colors[3]}%n%f at ${_prompt_steeef_colors[2]}%m%f in ${_prompt_steeef_colors[5]}%~%f "'${vcs_info_msg_0_}'"
-"'$python_info[virtualenv]'"%F{green}➜%f  "
+"'$python_info[virtualenv]'"%F{green}$SYMBOL%f  "
   RPROMPT=''
 }
 

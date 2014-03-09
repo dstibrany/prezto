@@ -41,6 +41,10 @@ fi
 #
 
 if [[ -n "$key_info" ]]; then
+
+  # bindkey '\e[A' history-substring-search-up
+  # bindkey '\e[B' history-substring-search-down
+
   # Emacs
   bindkey -M emacs "$key_info[Control]P" history-substring-search-up
   bindkey -M emacs "$key_info[Control]N" history-substring-search-down

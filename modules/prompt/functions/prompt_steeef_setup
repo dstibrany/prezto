@@ -86,9 +86,9 @@ function prompt_steeef_setup {
 
   # Define prompts.
   if [[ -z "$SSH_CLIENT" ]]; then
-    SYMBOL="$"
-  else
     SYMBOL="➜"
+  else
+    SYMBOL="$"
   fi
 
   PROMPT="

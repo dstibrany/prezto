@@ -62,6 +62,11 @@ if (( $+commands[lesspipe.sh] )); then
   export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
 fi
 
+if (( $+commands[source-highlight-esc.sh] )); then
+  LESSPIPE=`which source-highlight-esc.sh`
+  export LESSOPEN="| ${LESSPIPE} %s"
+fi
+
 #
 # Temporary Files
 #

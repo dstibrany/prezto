@@ -27,6 +27,8 @@ function prompt_steeef_precmd {
   if (( $+functions[python-info] )); then
     python-info
   fi
+
+  echo -ne "\e]1;${PWD##*/}\a"
 }
 
 function prompt_steeef_setup {
@@ -97,5 +99,7 @@ ${_prompt_steeef_colors[3]}%n%f at ${_prompt_steeef_colors[2]}%m%f in ${_prompt_
   RPROMPT=''
 }
 
-prompt_steeef_setup "$@"
+# Only show the current directory's name in the tab
+export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 
+prompt_steeef_setup "$@"

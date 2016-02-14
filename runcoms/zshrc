@@ -18,6 +18,8 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
 done
 unset file
 
+# load iterm2 shell integration
+source ~/.iterm2_shell_integration.zsh
+
 source "${ZDOTDIR:-$HOME}/.iterm2.zsh"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -18,12 +18,17 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
 done
 unset file
 
-# load iterm2 shell integration
-export iterm2_hostname=$(hostname | cut -d"." -f1)
+
+# load iterm2 shell integration + set up badge
 source ~/.iterm2_shell_integration.zsh
-if [[ "$iterm2_hostname" =~ ^hd1 ]]; then
-    printf "\e]1337;SetBadgeFormat=%s\a" $(echo -n "\(session.hostname)" | base64)
-fi
+function iterm2_print_user_vars() {
+    local host=$(hostname | cut -d"." -f1)
+    if [[ "$host" =~ ^hd ]]; then
+        iterm2_set_user_var hostname "$host"
+    else iterm2_set_user_var hostname ""
+    fi
+}
+printf "\e]1337;SetBadgeFormat=%s\a" $(echo -n "\(user.hostname)" | base64)
 
 source "${ZDOTDIR:-$HOME}/.iterm2.zsh"
 

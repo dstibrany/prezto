@@ -18,10 +18,6 @@ for file in ~/.{exports,path,aliases,functions,extra}; do
 done
 unset file
 
-# nvm support
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
 # load iterm2 shell integration + set up badge
 source ~/.iterm2_shell_integration.zsh
 function iterm2_print_user_vars() {

@@ -29,7 +29,6 @@ fi
 #
 
 # Git
-alias g='git'
 
 # Branch (b)
 alias gb='git branch'
@@ -191,5 +190,3 @@ alias gwx='git rm -r'
 alias gwX='git rm -rf'
 # Will cd into the top of the current repository # or submodule.
 alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
-
-
